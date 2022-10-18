@@ -1,5 +1,7 @@
 package transport;
 
+import java.time.LocalDate;
+
 public class Car {
     private final String brand;
     private final String model;
@@ -12,7 +14,8 @@ public class Car {
     private String regNumber;
     private final int countSeats;
     private boolean summerTyres;
-
+    private Key key;
+    private Insuranse insuranse;
     public Car(String brand,
                String model,
                double engineVolume,
@@ -23,7 +26,9 @@ public class Car {
                String typeOfBody,
                String regNumber,
                int countSeats,
-               boolean summerTyres) {
+               boolean summerTyres,
+               Key key,
+               Insuranse insuranse) {
         if (brand == null) {
             this.brand = "default";
         } else {
@@ -61,6 +66,16 @@ public class Car {
         } else {
             this.typeOfBody = typeOfBody;
         }
+        if (key == null) {
+            this.key = new Key();
+        } else {
+            this.key = key;
+        }
+        if (insuranse == null) {
+            this.insuranse = new Insuranse();
+        } else {
+            this.insuranse = insuranse;
+        }
         this.countSeats = countSeats;
         this.summerTyres = summerTyres;
     }
@@ -82,8 +97,41 @@ public class Car {
                 "х000хх000",
                 "стандарт",
                 4,
-                true
+                true,
+                new Key(),
+                new Insuranse()
                 );
+    }
+
+    public static class Key{
+
+        private final boolean remoteRunEngine;
+        private final boolean withoutKeyAccess;
+
+        public Key(boolean remoteRunEngine, boolean withoutKeyAccess) {
+            this.remoteRunEngine = remoteRunEngine;
+            this.withoutKeyAccess = withoutKeyAccess;
+        }
+
+        public Key() {
+            this (false, false);
+        }
+
+        public boolean isRemoteRunEngine() {
+            return remoteRunEngine;
+        }
+
+        public boolean isWithoutKeyAccess() {
+            return withoutKeyAccess;
+        }
+    }
+
+    public Key getKey() {
+        return key;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
     }
 
     public double getEngineVolume() {
@@ -162,6 +210,14 @@ public class Car {
         summerTyres = !summerTyres;
     }
 
+    public Insuranse getInsuranse() {
+        return insuranse;
+    }
+
+    public void setInsuranse(Insuranse insuranse) {
+        this.insuranse = insuranse;
+    }
+
     public boolean isCorrectRegNum() {
         if (regNumber.length() != 9) {
             return false;
@@ -177,5 +233,52 @@ public class Car {
             return false;
         }
         return true;
+    }
+    public static class Insuranse {
+
+        private final LocalDate expireDate;
+        private final double cost;
+        private final String number;
+
+        public Insuranse(LocalDate expireDate, double cost, String number) {
+            if (expireDate == null) {
+                this.expireDate = LocalDate.now().plusDays(365);
+            } else {
+                this.expireDate = expireDate;
+            }
+            this.cost = cost;
+            if (number == null) {
+                this.number = "123456789";
+            } else {
+                this.number = number;
+            }
+        }
+
+        public Insuranse() {
+                this (null, 10000, null);
+        }
+
+        public LocalDate getExpireDate() {
+            return expireDate;
+        }
+
+        public double getCost() {
+            return cost;
+        }
+
+        public String getNumber() {
+            return number;
+        }
+
+        public void checkExpireDate() {
+            if (expireDate.isBefore(LocalDate.now()) || expireDate.isEqual(LocalDate.now())) {
+                System.out.println("Нужно срочно ехать оформлять новую страховку!");
+            }
+        }
+        public void checkNumber() {
+            if (number.length() != 9) {
+                System.out.println("Номер страховки некорректный!");
+            }
+        }
     }
 }

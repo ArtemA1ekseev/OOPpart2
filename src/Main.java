@@ -93,6 +93,12 @@ public class Main {
                 ", тип кузова: " + car.getTypeOfBody() +
                 ", рег. номер: " + car.getRegNumber() +
                 ", кол-во мест: " + car.getCountSeats() +
-                ", " + (car.isSummerTyres() ? "летняя" : "зимняя") + " резина.");
+                ", " + (car.isSummerTyres() ? "летняя" : "зимняя") + " резина" +
+                ", " + (car.getKey().isWithoutKeyAccess() ? "безключевой доступ" : "ключевой доступ") +
+                ", " + (car.getKey().isRemoteRunEngine() ? "удаленный запуск" : "обычный запуск") +
+                ", номер страховки: " + car.getInsuranse().getNumber() +
+                ", стоимость страховки: " + car.getInsuranse().getCost() +
+                ", срок действия страховки: " + car.getInsuranse().getExpireDate()
+        );
     }
 }
