@@ -1,4 +1,4 @@
-import homework.Car;
+import transport.Car;
 import homework.Flower;
 import homework.Human;
 
@@ -21,19 +21,24 @@ public class Main {
         System.out.println(" ");
 
         Car ladaGranta = new Car("Lada", null, 1.7, "желтый", 2015, "России");
-        System.out.println("Бренд автомобиля — " + ladaGranta.brand + ", модель — " + ladaGranta.model + ", сборка в " + ladaGranta.productionCountry + ", цвет кузова — " + ladaGranta.color + ", объем двигателя — " + ladaGranta.engineVolume + " л, год выпуска — " + ladaGranta.productionYear + ".");
-
+        ladaGranta.setGears("автомат");
         Car audiA8 = new Car("Audi", "A8 50 L TDI quattro", 0, "черный", 2020, "Германии");
-        System.out.println("Бренд автомобиля — " + audiA8.brand + ", модель — " + audiA8.model + ", сборка в " + audiA8.productionCountry + ", цвет кузова — " + audiA8.color + ", объем двигателя — " + audiA8.engineVolume + " л, год выпуска — " + audiA8.productionYear + ".");
-
+        audiA8.setSummerTyres(true);
         Car bmwZ8 = new Car("BMW", "Z8", 3.0, null, 2021, "Германии");
-        System.out.println("Бренд автомобиля — " + bmwZ8.brand + ", модель — " + bmwZ8.model + ", сборка в " + bmwZ8.productionCountry + ", цвет кузова — " + bmwZ8.color + ", объем двигателя — " + bmwZ8.engineVolume + " л, год выпуска — " + bmwZ8.productionYear + ".");
-
+        bmwZ8.setRegNumber("x412zc413");
         Car kiaSportage = new Car("Kia", "Sportage 4-го поколения", 2.4, "красный", 0, null);
-        System.out.println("Бренд автомобиля — " + kiaSportage.brand + ", модель — " + kiaSportage.model + ", сборка в " + kiaSportage.productionCountry + ", цвет кузова — " + kiaSportage.color + ", объем двигателя — " + kiaSportage.engineVolume + " л, год выпуска — " + kiaSportage.productionYear + ".");
-
+        kiaSportage.setColor("титановый");
         Car hyundaiAvante = new Car(null, "Avante", 1.6, "оранжевый", 2016, "Южной Корее");
-        System.out.println("Бренд автомобиля — " + hyundaiAvante.brand + ", модель — " + hyundaiAvante.model + ", сборка в " + hyundaiAvante.productionCountry + ", цвет кузова — " + hyundaiAvante.color + ", объем двигателя — " + hyundaiAvante.engineVolume + " л, год выпуска — " + hyundaiAvante.productionYear + ".");
+        hyundaiAvante.setEngineVolume(3.1);
+
+
+        printInfoCar(ladaGranta);
+        printInfoCar(audiA8);
+        printInfoCar(bmwZ8);
+        printInfoCar(kiaSportage);
+        printInfoCar(hyundaiAvante);
+
+        System.out.println();
 
         Flower rosa = new Flower(null, "Голандия", 35.59);
         Flower hrizantema = new Flower(null, null, 15, 5);
@@ -76,5 +81,18 @@ public class Main {
         System.out.printf("Стоимость букета: %.2f.", totalCost);
         System.out.println();
         System.out.println("Срок стояния букета: " + minLifeSpan);
+    }
+
+    private static void printInfoCar(Car car) {
+        System.out.println("Бренд автомобиля — " + car.getBrand()
+                + ", модель — " + car.getModel() + ", сборка в "
+                + car.getProductionCountry() + ", цвет кузова — " + car.getColor()
+                + ", объем двигателя — " + car.getEngineVolume() + " л, год выпуска — "
+                + car.getProductionYear() +
+                ", коробка передач: " + car.getGears() +
+                ", тип кузова: " + car.getTypeOfBody() +
+                ", рег. номер: " + car.getRegNumber() +
+                ", кол-во мест: " + car.getCountSeats() +
+                ", " + (car.isSummerTyres() ? "летняя" : "зимняя") + " резина.");
     }
 }
